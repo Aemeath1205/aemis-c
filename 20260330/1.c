@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 //1. 概念与改错题
 //请回答下列问题。（1）简述“结构体类型”和“结构体变量”的区别。（2）下面哪些写法正确，哪些错误？错误的请改正。（3）说明.和->的区别，并举一个最简单的例子。
 //struct Student { int num; char name[20]; };
@@ -160,46 +161,89 @@
 //}
 
 
+//#include <stdio.h>
+//
+//struct Student {
+//    int num;
+//    char name[20];
+//    float score;
+//};
+//
+//void sortStudents(struct Student students[], int n) {
+//    for (int i = 0; i < n - 1; i++) {
+//        for (int j = 0; j < n - i - 1; j++) {
+//            if (students[j].score < students[j + 1].score) {
+//                struct Student temp = students[j];
+//                students[j] = students[j + 1];
+//                students[j + 1] = temp;
+//            }
+//        }
+//    }
+//}
+//
+//int main() {
+//    struct Student students[5];
+//
+//    printf("请输入5名学生的信息：\n");
+//    for (int i = 0; i < 5; i++) {
+//        printf("第 %d 名学生：\n", i + 1);
+//        printf("学号：");
+//        scanf("%d", &students[i].num);
+//        printf("姓名：");
+//        scanf("%s", students[i].name);
+//        printf("成绩：");
+//        scanf("%f", &students[i].score);
+//    }
+//
+//    sortStudents(students, 5);
+//
+//    printf("排名\t学号\t姓名\t成绩\n");
+//    for (int i = 0; i < 5; i++) {
+//        printf("%d\t%d\t%s\t%.2f\n", i + 1, students[i].num, students[i].name, students[i].score);
+//    }
+//
+//    return 0;
+//}
+
+//#include <stdio.h>
+//
+//int main()
+//{
+//
+//    int a = 0 ;
+//    scanf("%d", &a);
+//    if (a >= 140) 
+//        printf("%s\n", "genius"); 
+//    return 0;
+//}
+
+//#include <stdio.h>
+//
+//int main()
+//{
+//    int a = 0;
+//    int b = 0;
+//    scanf("%d\n", &a);
+//    scanf("%d\n", &b);
+//    int c = a / b;
+//    int d = a % b;
+//    printf("%d\n", c);
+//    printf("%d\n", d);
+//    return 0;
+//}
+
+
 #include <stdio.h>
-
-struct Student {
-    int num;
-    char name[20];
-    float score;
-};
-
-void sortStudents(struct Student students[], int n) {
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = 0; j < n - i - 1; j++) {
-            if (students[j].score < students[j + 1].score) {
-                struct Student temp = students[j];
-                students[j] = students[j + 1];
-                students[j + 1] = temp;
-            }
-        }
-    }
-}
-
-int main() {
-    struct Student students[5];
-
-    printf("请输入5名学生的信息：\n");
-    for (int i = 0; i < 5; i++) {
-        printf("第 %d 名学生：\n", i + 1);
-        printf("学号：");
-        scanf("%d", &students[i].num);
-        printf("姓名：");
-        scanf("%s", students[i].name);
-        printf("成绩：");
-        scanf("%f", &students[i].score);
-    }
-
-    sortStudents(students, 5);
-
-    printf("排名\t学号\t姓名\t成绩\n");
-    for (int i = 0; i < 5; i++) {
-        printf("%d\t%d\t%s\t%.2f\n", i + 1, students[i].num, students[i].name, students[i].score);
-    }
-
+int main()
+{
+    int a = 0;
+    int b = 0;
+    scanf("%d%d", a, b);
+    if (a > b)
+        printf("%d\n", a);
+    else if (a = b)
+            printf("%s\n", "a=b");
+    else
+            printf("%d\n", b);
     return 0;
 }
