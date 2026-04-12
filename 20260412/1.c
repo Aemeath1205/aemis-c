@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS 1
 #include <stdio.h>
 //int bin_search(int arr[], int left, int right, int key)
 //{
