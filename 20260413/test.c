@@ -13,7 +13,7 @@ void game(void)
 	display_board(show, ROW, COL);
 	//·ÅÀ×
 	set_mine(mine,ROW,COL);
-	display_board(mine, ROW, COL);
+	//display_board(mine, ROW, COL);
 	//ÅÅÀ×
 	found_mine(mine,show,ROW,COL);
 }

@@ -78,3 +78,123 @@
 //    destroyAllWindows();
 //    return 0;
 //}
+#include <opencv2/opencv.hpp>
+#include <iostream>
+#include <vector>
+
+// 全局变量定义（按照实验要求）
+cv::Mat src, grayImg, resultImg;
+int threshold1Value = 50;
+int threshold2Value = 150;
+int minAreaValue = 100;
+const std::string WINDOW_NAME = "你的学号+你的姓名";
+
+// 回调函数声明
+void updateImage(int, void*);
+
+int main()
+{
+    // 1. 读取图像
+    src = cv::imread("C:/C++_text/aemis/ConsoleApplication1/test.png");
+
+    if (src.empty())
+    {
+        std::cout << "图像读取失败，请检查 test.jpg 是否在程序工作目录中。" << std::endl;
+        return -1;
+    }
+
+    // 2. 转换为灰度图
+    cv::cvtColor(src, grayImg, cv::COLOR_BGR2GRAY);
+
+    // 3. 创建窗口
+    cv::namedWindow(WINDOW_NAME, cv::WINDOW_AUTOSIZE);
+
+    // 4. 创建滑动条
+    cv::createTrackbar(
+        "Threshold1",
+        WINDOW_NAME,
+        &threshold1Value,
+        255,
+        updateImage
+    );
+
+    cv::createTrackbar(
+        "Threshold2",
+        WINDOW_NAME,
+        &threshold2Value,
+        255,
+        updateImage
+    );
+
+    cv::createTrackbar(
+        "MinArea",
+        WINDOW_NAME,
+        &minAreaValue,
+        5000,
+        updateImage
+    );
+
+    // 初始处理一次
+    updateImage(0, 0);
+
+    while (true)
+    {
+        char key = (char)cv::waitKey(30);
+
+        if (key == 's')
+        {
+            if (!resultImg.empty())
+            {
+                cv::imwrite("contour_result.jpg", resultImg);
+                std::cout << "轮廓提取结果已保存为 contour_result.jpg" << std::endl;
+            }
+        }
+        else if (key == 'q' || key == 27)
+        {
+            break;
+        }
+    }
+
+    cv::destroyAllWindows();
+    return 0;
+}
+
+// 回调函数实现（按照实验要求）
+void updateImage(int, void*)
+{
+    cv::Mat blurImg, edgeImg;
+    // a. 高斯平滑滤波
+    cv::GaussianBlur(grayImg, blurImg, cv::Size(5, 5), 0);
+    // b. Canny边缘检测
+    cv::Canny(blurImg, edgeImg, threshold1Value, threshold2Value);
+    // c. 查找轮廓
+    std::vector<std::vector<cv::Point>> contours;
+    std::vector<cv::Vec4i> hierarchy;
+    cv::findContours(
+        edgeImg.clone(),
+        contours,
+        hierarchy,
+        cv::RETR_EXTERNAL,
+        cv::CHAIN_APPROX_SIMPLE
+    );
+    // d. 绘制过滤后的轮廓
+    resultImg = src.clone();
+    for (size_t i = 0; i < contours.size(); i++)
+    {
+        double area = cv::contourArea(contours[i]);
+        // 过滤小面积噪声轮廓
+        if (area < minAreaValue)
+        {
+            continue;
+        }
+        cv::drawContours(
+            resultImg,
+            contours,
+            (int)i,
+            cv::Scalar(0, 0, 255),
+            2
+        );
+    }
+    // e. 显示结果
+    cv::imshow(WINDOW_NAME, resultImg);
+}
