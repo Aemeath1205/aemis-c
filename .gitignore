@@ -1,0 +1,36 @@
+﻿# ==== Visual Studio ====
+.vs/
+x64/
+Debug/
+Release/
+ipch/
+*.user
+*.suo
+*.VC.db
+*.VC.VC.opendb
+*.sln.docstates
+*.vsidx
+
+# ==== 编译产物 ====
+*.o
+*.obj
+*.exe
+*.dll
+*.lib
+*.pdb
+*.ilk
+*.exp
+*.idb
+*.ipch
+*.tlog
+*.recipe
+*.lastbuildstate
+*.iobj
+*.ipdb
+*.res
+*.log
+
+# ==== 通用 ====
+bin/
+obj/
+*.tmp
